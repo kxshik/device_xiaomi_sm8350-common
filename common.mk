@@ -327,16 +327,18 @@ $(call soong_config_set_bool,stagefright,target_disable_thumbnail_block_model,tr
 $(call soong_config_set_bool,stagefright,target_disables_thumbnail_block_model,true)
 
 # Overlays
-DEVICE_PACKAGE_OVERLAYS += \
-    $(LOCAL_PATH)/overlay \
-    $(LOCAL_PATH)/overlay-lineage
-
 PRODUCT_ENFORCE_RRO_TARGETS := *
 
 PRODUCT_PACKAGES += \
-    CarrierConfigOverlaySM8350
+    CarrierConfigOverlaySM8350 \
+    DialerOverlaySM8350 \
+    LineageSDKOverlaySM8350 \
+    TelephonyOverlaySM8350
 
 PRODUCT_PACKAGES += \
+    FrameworkOverlaySM8350 \
+    SettingsOverlaySM8350 \
+    SystemUIOverlaySM8350 \
     WifiOverlaySM8350
 
 PRODUCT_PACKAGES += \
