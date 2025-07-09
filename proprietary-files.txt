@@ -1,4 +1,4 @@
-# All unpinned blobs below are extracted from vili V816.0.12.0.UKDEUXM
+# All unpinned blobs below are extracted from MIUI CN 13
 
 # Current blobs with ELF checks disabled:
 
