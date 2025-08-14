@@ -8,9 +8,34 @@ vendor/etc/init/vendor.qti.adsprpc-guestos-service.rc
 vendor/lib64/libadsp_default_listener.so
 vendor/lib64/libadsprpc.so
 
-# Audio FX modules
+# Audio (system) - from LA.QSSI.15.0.r1-14500-qssi.0
+system_ext/bin/qxrsplitauxservice
+system_ext/etc/init/sxrauxd_ext.rc
 system_ext/etc/permissions/audiosphere.xml
+system_ext/etc/seccomp_policy/sxraux-arm.policy
 system_ext/framework/audiosphere.jar
+system_ext/lib/libbinauralrenderer_wrapper.qti.so
+system_ext/lib/libhoaeffects.qti.so
+system_ext/lib/libhoaeffects_csim.so
+system_ext/lib/liblistenjni.qti.so
+system_ext/lib/liblistensoundmodel2.qti.so
+system_ext/lib/liblsmclient.so
+system_ext/lib/libvr_amb_engine.so
+system_ext/lib/libvr_object_engine.so
+system_ext/lib/vendor.qti.hardware.ListenSoundModel@1.0.so
+system_ext/lib64/libbinauralrenderer_wrapper.qti.so
+system_ext/lib64/libhoaeffects.qti.so
+system_ext/lib64/libhoaeffects_csim.so
+system_ext/lib64/liblistenjni.qti.so
+system_ext/lib64/liblistensoundmodel2.qti.so
+system_ext/lib64/liblsmclient.so
+system_ext/lib64/libqxrsplitauxservice.qti.so
+system_ext/lib64/libvr_amb_engine.so
+system_ext/lib64/libvr_object_engine.so
+system_ext/lib64/vendor.qti.hardware.ListenSoundModel@1.0.so
+system_ext/lib64/vendor.qti.hardware.qxr-V1-ndk_platform.so:system_ext/lib64/vendor.qti.hardware.qxr-V1-ndk.so;FIX_SONAME
+
+# Audio FX modules
 vendor/lib/soundfx/libasphere.so
 vendor/lib/soundfx/libshoebox.so
 vendor/lib/soundfx/libqcbassboost.so
