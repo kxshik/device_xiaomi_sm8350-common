@@ -54,8 +54,6 @@ blob_fixups: blob_fixups_user_type = {
         .add_needed('libcrypto_shim.so'),
     'vendor/lib64/android.hardware.secure_element@1.0-impl.so': blob_fixup()
         .remove_needed('android.hidl.base@1.0.so'),
-    'vendor/etc/qcril_database/upgrade/config/6.0_config.sql': blob_fixup()
-        .regex_replace('"persist.vendor.radio.redir_party_num", "true"', '"persist.vendor.radio.redir_party_num", "false"'),
 }  # fmt: skip
 
 module = ExtractUtilsModule(
