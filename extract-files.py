@@ -19,6 +19,7 @@ from extract_utils.main import (
 
 namespace_imports = [
     'device/xiaomi/sm8350-common',
+    'hardware/dolby',
     'hardware/qcom-caf/sm8350',
     'hardware/qcom-caf/wlan',
     'hardware/xiaomi',
@@ -50,14 +51,19 @@ blob_fixups: blob_fixups_user_type = {
     ('vendor/etc/media_lahaina/video_system_specs.json', 'vendor/etc/media_shima_v1/video_system_specs.json', 'vendor/etc/media_yupik_v1/video_system_specs.json'): blob_fixup()
         .regex_replace('"max_retry_alloc_output_timeout": 10000,', '"max_retry_alloc_output_timeout": 0,'),
     'vendor/etc/vintf/manifest/c2_manifest_vendor.xml': blob_fixup()
-        .regex_replace('.*ozoaudio.*\n?', '')
-        .regex_replace('.*dolby.*\n?', ''),
+        .regex_replace('.*ozoaudio.*\n?', ''),
     ('vendor/lib64/mediadrm/libwvdrmengine.so', 'vendor/lib64/libwvhidl.so'): blob_fixup()
         .add_needed('libcrypto_shim.so'),
     'vendor/lib64/android.hardware.secure_element@1.0-impl.so': blob_fixup()
         .remove_needed('android.hidl.base@1.0.so'),
     ('vendor/lib64/libdpps.so', 'vendor/lib64/libsnapdragoncolor-manager.so'): blob_fixup()
         .replace_needed('libtinyxml2.so', 'libtinyxml2-v34.so'),
+    ('vendor/lib64/c2.dolby.avc.dec.so', 'vendor/lib64/c2.dolby.avc.sec.dec.so', 'vendor/lib64/c2.dolby.hevc.dec.so', 'vendor/lib64/c2.dolby.hevc.sec.dec.so'): blob_fixup()
+        .add_needed('libcodec2_shim.so')
+        .add_needed('libstagefright_foundation-v33.so'),
+    ('vendor/lib64/c2.dolby.client.so'): blob_fixup()
+        .add_needed('libcodec2_shim.so')
+        .add_needed('libcodec2_hidl_shim.so'),
 }  # fmt: skip
 
 module = ExtractUtilsModule(
