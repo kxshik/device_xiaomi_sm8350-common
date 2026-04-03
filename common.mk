@@ -326,6 +326,10 @@ $(call soong_config_set_bool,stagefright,target_disable_thumbnail_block_model,tr
 $(call soong_config_set_bool,stagefright,target_disables_thumbnail_block_model,true)
 
 # Overlays
+DEVICE_PACKAGE_OVERLAYS += \
+    $(LOCAL_PATH)/overlay \
+    $(LOCAL_PATH)/overlay-lineage
+
 PRODUCT_ENFORCE_RRO_TARGETS := *
 
 PRODUCT_PACKAGES += \
