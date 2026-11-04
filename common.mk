@@ -20,14 +20,34 @@ $(call inherit-product, vendor/xiaomi/sm8350-common/sm8350-common-vendor.mk)
 # Setup dalvik vm configs
 $(call inherit-product, frameworks/native/build/phone-xhdpi-6144-dalvik-heap.mk)
 
-# Add common definitions for Qualcomm
-$(call inherit-product, hardware/qcom-caf/common/common.mk)
+# Platform
+TARGET_BOARD_PLATFORM := lahaina
+
+# QC common
+TARGET_COMMON_QTI_COMPONENTS := \
+    adreno \
+    alarm \
+    audio \
+    av \
+    bt \
+    display \
+    gps \
+    init \
+    media \
+    nfc \
+    overlay \
+    perf \
+    telephony \
+    usb \
+    wfd \
+    wlan
 
 # API
 PRODUCT_SHIPPING_API_LEVEL := 30
 
 # Audio
 PRODUCT_PACKAGES += \
+    android.hardware.audio.sounddose-vendor-impl \
     libqcompostprocbundle \
     libqcomvisualizer \
     libqcomvoiceprocessing \
@@ -157,7 +177,7 @@ PRODUCT_PACKAGES += \
     vendor.qti.hardware.memtrack-service
 
 PRODUCT_COPY_FILES += \
-    hardware/qcom-caf/sm8350/display/config/snapdragon_color_libs_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/snapdragon_color_libs_config.xml
+    hardware/qcom/display/config/snapdragon_color_libs_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/snapdragon_color_libs_config.xml
 
 # Dolby
 $(call inherit-product-if-exists, vendor/sony/dolby/dolby.mk)
@@ -198,7 +218,8 @@ PRODUCT_COPY_FILES += \
 # GPS
 PRODUCT_PACKAGES += \
     android.hardware.gnss@2.1-impl-qti \
-    android.hardware.gnss@2.1-service-qti
+    android.hardware.gnss@2.1-service-qti \
+    libloc_net_iface.vendor
 
 PRODUCT_PACKAGES += \
     libbatching \
