@@ -106,9 +106,6 @@ PRODUCT_PACKAGES += \
     checkpoint_gc \
     otapreopt_script
 
-# BCR
-$(call inherit-product, vendor/bcr/bcr.mk)
-
 # Bluetooth
 PRODUCT_PACKAGES += \
     audio.bluetooth.default
@@ -166,7 +163,7 @@ PRODUCT_COPY_FILES += \
     hardware/qcom-caf/sm8350/display/config/snapdragon_color_libs_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/snapdragon_color_libs_config.xml
 
 # Dolby
-$(call inherit-product, vendor/sony/dolby/dolby.mk)
+$(call inherit-product-if-exists, vendor/sony/dolby/dolby.mk)
 
 # DRM
 PRODUCT_PACKAGES += \
@@ -309,10 +306,6 @@ PRODUCT_VENDOR_PROPERTIES += \
     $(foreach tag,$(SPAMMY_LOG_TAGS),log.tag.$(tag)=E)
 endif
 
-# MatLog
-PRODUCT_PACKAGES += \
-    MatLog
-
 # Media
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/media/init.qti.media.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.qti.media.sh \
@@ -406,10 +399,6 @@ PRODUCT_COPY_FILES += \
 # Recovery
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/etc/init.recovery.qcom.rc:$(TARGET_COPY_OUT_RECOVERY)/root/init.recovery.qcom.rc
-
-# Remove unwanted packages
-PRODUCT_PACKAGES += \
-    RemovePackages
 
 # Sensors
 PRODUCT_PACKAGES += \
