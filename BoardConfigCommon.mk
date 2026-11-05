@@ -7,6 +7,8 @@ COMMON_PATH := device/xiaomi/sm8350-common
 
 # Build system
 BUILD_BROKEN_DUP_RULES := true
+BUILD_BROKEN_DUP_SYSPROP := true
+BUILD_BROKEN_PREBUILT_ELF_FILES := true
 
 # A/B
 AB_OTA_PARTITIONS += \
