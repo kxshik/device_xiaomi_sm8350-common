@@ -6,14 +6,3 @@
 
 LOCAL_PATH := $(call my-dir)
 
-ifneq ($(TARGET_PREBUILT_KERNEL),)
-KERNEL_HEADERS_DIR := $(dir $(TARGET_PREBUILT_KERNEL))kernel-headers
-
-$(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr: $(TARGET_PREBUILT_KERNEL)
-	@echo "Staging prebuilt kernel headers: $(KERNEL_HEADERS_DIR) -> $@"
-	@mkdir -p $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ
-	@rm -rf $@
-	@mkdir -p $@/include
-	@cp -a $(KERNEL_HEADERS_DIR)/* $@/include/
-	@touch $@
-endif
