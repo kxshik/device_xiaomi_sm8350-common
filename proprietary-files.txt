@@ -132,10 +132,6 @@ vendor/lib64/vendor.qti.esepowermanager@1.1.so
 
 # Gatekeeper
 
-# GNSS
-vendor/etc/vintf/manifest/vendor.qti.gnss@4.0-service.xml
-vendor/lib64/hw/vendor.qti.gnss@4.0-impl.so
-vendor/lib64/vendor.qti.gnss@4.0-service.so
 
 # Graphics
 
