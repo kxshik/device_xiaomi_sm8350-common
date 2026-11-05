@@ -95,7 +95,6 @@ TARGET_KERNEL_SOURCE := kernel/xiaomi/sm8350
 KERNEL_DEFCONFIG := vendor/lahaina-qgki_defconfig
 TARGET_KERNEL_CONFIG := $(KERNEL_DEFCONFIG)
 KERNEL_FRAGMENT_CONFIG := vendor/debugfs.config vendor/xiaomi_QGKI.config
-TARGET_BOARD_KERNEL_HEADERS := device/xiaomi/vili-kernel/kernel-headers
 
 
 BOARD_KERNEL_CMDLINE += androidboot.console=ttyMSM0
