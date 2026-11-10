@@ -25,18 +25,16 @@ AB_OTA_PARTITIONS += \
 
 # Architecture
 TARGET_ARCH := arm64
-TARGET_ARCH_VARIANT := armv8-2a
+TARGET_ARCH_VARIANT := armv8-2a-dotprod
 TARGET_CPU_ABI := arm64-v8a
 TARGET_CPU_ABI2 :=
-TARGET_CPU_VARIANT := generic
-TARGET_CPU_VARIANT_RUNTIME := kryo385
+TARGET_CPU_VARIANT := cortex-a76
 
 TARGET_2ND_ARCH := arm
-TARGET_2ND_ARCH_VARIANT := armv8-a
+TARGET_2ND_ARCH_VARIANT := armv8-2a
 TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
-TARGET_2ND_CPU_VARIANT := generic
-TARGET_2ND_CPU_VARIANT_RUNTIME := kryo385
+TARGET_2ND_CPU_VARIANT := cortex-a76
 
 # Audio
 AUDIO_FEATURE_ENABLED_DLKM := true
@@ -65,16 +63,16 @@ TARGET_FS_CONFIG_GEN := $(COMMON_PATH)/config.fs
 
 # HIDL
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \
-    $(COMMON_PATH)/framework_compatibility_matrix.xml \
-    hardware/xiaomi/vintf/xiaomi_framework_compatibility_matrix.xml
+    hardware/xiaomi/vintf/xiaomi_framework_compatibility_matrix.xml \
+    $(COMMON_PATH)/vintf/xiaomi_sm8350_framework_compatibility_matrix.xml
 
 DEVICE_MANIFEST_FILE += \
-    $(COMMON_PATH)/hidl/manifest_lahaina.xml \
-    $(COMMON_PATH)/hidl/manifest_xiaomi.xml
+    $(COMMON_PATH)/vintf/manifest_lahaina.xml \
+    $(COMMON_PATH)/vintf/manifest_xiaomi.xml
 
 ifeq ($(TARGET_HAS_UDFPS),true)
 DEVICE_MANIFEST_FILE += \
-    $(COMMON_PATH)/hidl/manifest_udfps.xml
+    $(COMMON_PATH)/vintf/manifest_udfps.xml
 endif
 
 # Kernel
