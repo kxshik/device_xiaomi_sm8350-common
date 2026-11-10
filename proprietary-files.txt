@@ -2,9 +2,6 @@
 # marvel: marvel_g A171WEH.20
 # sunstone: sunstone OS2.0.4.0.UMQMIXM
 
-# ADSP
-vendor/etc/init/vendor.qti.adsprpc-guestos-service.rc
-
 # Audio FX modules
 vendor/lib/soundfx/libasphere.so
 vendor/lib/soundfx/libshoebox.so
@@ -142,7 +139,6 @@ system_ext/etc/permissions/com.android.hotwordenrollment.common.util.xml
 system_ext/framework/com.android.hotwordenrollment.common.util.jar
 
 # IMS
-system_ext/lib64/libimscamera_jni.so
 vendor/bin/ims_rtp_daemon
 vendor/bin/imsdaemon
 vendor/etc/init/ims_rtp_daemon.rc
@@ -161,9 +157,6 @@ vendor/lib64/lib-rtpcore.so
 vendor/lib64/lib-rtpsl.so
 vendor/lib64/librcc.so
 vendor/lib64/vendor.qti.imsrtpservice@3.0-service-Impl.so
-
-# IRQ balance
-vendor/etc/msm_irqbalance.conf
 
 # Keymaster
 
@@ -203,13 +196,6 @@ vendor/lib/libsn100u_fw.so:vendor/lib64/libsn100u_fw.so
 vendor/bin/nv_mac
 
 # Perf
-vendor/bin/hw/vendor.qti.hardware.perf@2.2-service
-vendor/etc/init/vendor.qti.hardware.perf@2.2-service.rc
-vendor/etc/perf/commonresourceconfigs.xml
-vendor/etc/perf/perfboostsconfig.xml
-vendor/etc/perf/perfconfigstore.xml
-vendor/etc/perf/targetconfig.xml
-vendor/etc/perf/targetresourceconfigs.xml
 vendor/lib/vendor.qti.memory.pasrmanager@1.0.so
 vendor/lib/vendor.qti.memory.pasrmanager@1.1.so
 vendor/lib64/vendor.qti.memory.pasrmanager@1.0.so
@@ -219,12 +205,6 @@ vendor/lib64/vendor.qti.memory.pasrmanager@1.1.so
 vendor/bin/pm-proxy
 vendor/bin/pm-service
 vendor/lib64/libperipheral_client.so
-
-# Power-off alarm
-vendor/bin/hw/vendor.qti.hardware.alarm@1.0-service
-vendor/etc/init/vendor.qti.hardware.alarm@1.0-service.rc
-vendor/lib64/hw/vendor.qti.hardware.alarm@1.0-impl.so
-vendor/lib64/vendor.qti.hardware.alarm@1.0.so
 
 # Power-off charging daemon
 system/bin/charger:system/bin/chargeonlymode
@@ -273,7 +253,6 @@ vendor/lib64/libqmi_legacy.so
 vendor/lib64/libqmiservices.so
 
 # RIL
-system_ext/app/QtiTelephonyService/QtiTelephonyService.apk
 vendor/app/IWlanService/IWlanService.apk
 vendor/bin/hw/qcrilNrd
 vendor/bin/adpl
@@ -419,7 +398,6 @@ vendor/lib64/libvpphvx.so
 vendor/lib64/libvpplibrary.so
 
 # WiFi
-vendor/etc/init/init.vendor.wlan.rc
 vendor/etc/wifi/aoa_cldb_falcon.bin
 vendor/etc/wifi/aoa_cldb_swl14.bin
 
