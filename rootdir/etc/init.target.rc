@@ -33,10 +33,14 @@ import /vendor/etc/init/hw/init.mi_thermald.rc
 import /vendor/etc/init/hw/init.batterysecret.rc
 
 on early-init
+    setprop sys.usb.controller a600000.dwc3
+    setprop sys.usb.configfs 1
+    setprop sys.usb.config adb
     exec u:r:vendor_modprobe:s0 -- /vendor/bin/vendor_modprobe.sh
     wait /sys/devices/soc0/soc_id
 
 on init
+    start adbd
     # Scheduler uclamp
     mkdir /dev/cpuctl/foreground
     mkdir /dev/cpuctl/background
@@ -92,7 +96,6 @@ on post-fs
     setrlimit 8 67108864 67108864
 
 on late-fs
-    wait_for_prop hwservicemanager.ready true
     mount_all --late
 
 on post-fs-data
