@@ -21,6 +21,13 @@
         </carrier_config>-->
 
     <carrier_config>
+        <!-- 5G NR SA SS-RSRP signal strength thresholds -->
+        <int-array name="5g_nr_ssrsrp_thresholds_int_array" num="4">
+            <item value="-125" />
+            <item value="-115" />
+            <item value="-105" />
+            <item value="-95" />
+        </int-array>
         <boolean name="apn_expand_bool" value="true" />
         <boolean name="world_phone_bool" value="true" />
         <boolean name="allow_adding_apns_bool" value="true" />
