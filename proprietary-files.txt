@@ -44,6 +44,9 @@ vendor/lib64/libcneoplookup.so
 vendor/lib64/libwms.so
 vendor/lib64/libwqe.so
 vendor/lib64/libxml.so
+vendor/lib64/vendor.qti.hardware.data.cne.internal.api@1.0.so
+vendor/lib64/vendor.qti.hardware.data.cne.internal.constants@1.0.so
+vendor/lib64/vendor.qti.hardware.data.cne.internal.server@1.0.so
 
 # CNE profiles
 vendor/etc/cne/wqeclient/ATT/ATT_profile1.xml
@@ -172,6 +175,8 @@ vendor/lib64/lib-rtpcommon.so
 vendor/lib64/lib-rtpcore.so
 vendor/lib64/lib-rtpsl.so
 vendor/lib64/librcc.so
+vendor/lib64/vendor.qti.ims.factory@1.0.so
+vendor/lib64/vendor.qti.ims.factory@1.1.so
 vendor/lib64/vendor.qti.imsrtpservice@3.0-service-Impl.so
 
 # Keymaster
@@ -357,9 +362,12 @@ vendor/lib64/ls_nq_client.so
 vendor/lib64/se_nq_extn_client.so
 
 # Sensors
+vendor/lib/vendor.qti.hardware.dsp@1.0.so
 vendor/lib64/libadsp_default_listener.so
+vendor/lib64/libadsprpc.so
 vendor/lib64/libsdsprpc.so
 vendor/lib64/libssccalapi.so;DUMMY_SHARED_LIB
+vendor/lib64/vendor.qti.hardware.dsp@1.0.so
 
 # Sensors (citsensor)
 vendor/bin/hw/vendor.xiaomi.hardware.citsensorservice@1.1-service
