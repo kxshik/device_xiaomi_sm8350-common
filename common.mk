@@ -125,7 +125,8 @@ PRODUCT_PACKAGES += \
     audio.bluetooth.default
 
 PRODUCT_PACKAGES += \
-    android.hardware.bluetooth.audio-impl
+    android.hardware.bluetooth.audio-impl \
+    android.hardware.bluetooth.audio-service
 
 # Boot animation
 TARGET_SCREEN_HEIGHT := 2400
@@ -180,6 +181,9 @@ PRODUCT_PACKAGES += \
     vendor.qti.hardware.display.composer-service.rc \
     vendor.qti.hardware.display.composer-service.xml \
     vendor.qti.hardware.memtrack-service
+
+# Dolby
+$(call inherit-product-if-exists, vendor/sony/dolby/dolby.mk)
 
 # DRM
 PRODUCT_PACKAGES += \
