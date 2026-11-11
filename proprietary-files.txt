@@ -357,6 +357,8 @@ vendor/lib64/ls_nq_client.so
 vendor/lib64/se_nq_extn_client.so
 
 # Sensors
+vendor/lib64/libadsp_default_listener.so
+vendor/lib64/libsdsprpc.so
 vendor/lib64/libssccalapi.so;DUMMY_SHARED_LIB
 
 # Sensors (citsensor)
