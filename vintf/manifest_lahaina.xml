@@ -27,16 +27,6 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <manifest version="1.0" type="device" target-level="6">
     <kernel target-level="6"/>
-    <!-- Boot Control -->
-    <hal format="hidl">
-        <name>android.hardware.boot</name>
-        <transport>hwbinder</transport>
-        <version>1.2</version>
-        <interface>
-            <name>IBootControl</name>
-            <instance>default</instance>
-        </interface>
-    </hal>
     <!-- Keymaster & Gatekeeper HAL Services -->
     <hal format="hidl">
         <name>android.hardware.keymaster</name>
