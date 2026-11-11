@@ -28,6 +28,13 @@
             <item value="-105" />
             <item value="-95" />
         </int-array>
+        <!-- Global VoLTE & VoNR defaults -->
+        <boolean name="carrier_volte_available_bool" value="true" />
+        <boolean name="carrier_default_volte_switch_on_bool" value="true" />
+        <boolean name="carrier_vt_available_bool" value="true" />
+        <boolean name="carrier_wfc_ims_available_bool" value="true" />
+        <boolean name="vonr_enabled_bool" value="true" />
+        <boolean name="vonr_setting_visibility_bool" value="true" />
         <boolean name="apn_expand_bool" value="true" />
         <boolean name="world_phone_bool" value="true" />
         <boolean name="allow_adding_apns_bool" value="true" />
