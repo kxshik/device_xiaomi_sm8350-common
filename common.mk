@@ -486,3 +486,27 @@ PRODUCT_COPY_FILES += \
 # WiFi firmware symlinks
 PRODUCT_PACKAGES += \
     firmware_WCNSS_qcom_cfg.ini_symlink
+
+# Boot debugging: adb comes up without the authorization prompt (the screen
+# never gets past the logo), the kernel log goes into logcat and logs are
+# streamed to /metadata/sm8350-debug. Always on for userdebug/eng, where adbd
+# also starts as root; force it on a user build with SM8350_BOOT_DEBUG=true.
+ifneq ($(SM8350_BOOT_DEBUG)$(filter userdebug eng,$(TARGET_BUILD_VARIANT)),)
+PRODUCT_PACKAGES += \
+    init.sm8350.debug.rc \
+    sm8350-debuglog.sh
+
+PRODUCT_PRODUCT_PROPERTIES += \
+    ro.adb.secure=0 \
+    persist.sys.usb.config=mtp,adb \
+    ro.logd.kernel=true \
+    persist.logd.size=16M \
+    persist.logd.logpersistd=logcatd \
+    persist.logd.logpersistd.buffer=all \
+    persist.logd.logpersistd.size=30
+
+ifneq ($(filter userdebug eng,$(TARGET_BUILD_VARIANT)),)
+PRODUCT_PRODUCT_PROPERTIES += \
+    service.adb.root=1
+endif
+endif
