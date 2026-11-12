@@ -8,9 +8,11 @@ persist.vendor.cne.feature=1
 debug.sf.disable_backpressure=1
 debug.sf.enable_hwc_vds=1
 debug.sf.predict_hwc_composition_strategy=0
+debug.renderengine.backend=skiagl
+debug.sf.disable_client_composition_cache=1
 
 # Log
-persist.log.tag.OpenGLRenderer=S
+persist.log.tag.OpenGLRenderer=D
 persist.log.tag.CVP=S
 persist.log.tag.CamX=S
 persist.log.tag.SYNX-UMD=S
@@ -32,7 +34,7 @@ persist.log.tag.ContrastColorUtil=S
 persist.log.tag.OpenGLRenderer=S
 persist.log.tag.ultrasound_extn=S
 persist.log.tag.minksocket=S
-persist.log.tag.HWUI=S
+persist.log.tag.HWUI=D
 persist.log.tag.QC2Buf=W
 persist.log.tag.QC2V4l2Codec=E
 
