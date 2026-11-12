@@ -181,6 +181,15 @@ PRODUCT_PACKAGES += \
     vendor.qti.hardware.display.composer-service.xml \
     vendor.qti.hardware.memtrack-service
 
+# Doze
+PRODUCT_PACKAGES += \
+    ParanoidDoze
+
+PRODUCT_SYSTEM_EXT_PROPERTIES += \
+    ro.sensor.pickup=xiaomi.sensor.pickup \
+    ro.sensor.pickup.lower.value=2 \
+    ro.sensor.proximity=true
+
 # Dolby
 $(call inherit-product-if-exists, vendor/sony/dolby/dolby.mk)
 
