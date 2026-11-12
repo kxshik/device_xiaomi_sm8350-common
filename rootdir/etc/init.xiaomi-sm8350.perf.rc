@@ -1,27 +1,32 @@
 # Copyright (C) 2024 Paranoid Android
 #
-#
 # SPDX-License-Identifier: Apache-2.0
 
 on property:vendor.post_boot.parsed=1
-# IRQ Tuning
-# IRQ 278: msm_drm0
-# IRQ 275: kgsl_3d0_irq
-write /proc/irq/278/smp_affinity_list 2
-write /proc/irq/275/smp_affinity_list 1
+    # IRQ Tuning (Dynamic lookup preferred; removed erroneous static power-key IRQs 275/278)
 
-# CPU Boost
-write /sys/devices/system/cpu/cpu_boost/input_boost_ms 200
+    # CPU Boost (Boost Little Core 0 + Mid Core 4 to eliminate initial touch ramp-up lag)
+    write /sys/devices/system/cpu/cpu_boost/input_boost_freq "0:1305600 1:0 2:0 3:0 4:1324800 5:0 6:0 7:0"
+    write /sys/devices/system/cpu/cpu_boost/input_boost_ms 120
 
-# CPUFreq
-write /sys/devices/system/cpu/cpu0/cpufreq/schedutil/up_rate_limit_us 500
-write /sys/devices/system/cpu/cpu0/cpufreq/schedutil/down_rate_limit_us 20000
-write /sys/devices/system/cpu/cpu4/cpufreq/schedutil/up_rate_limit_us 500
-write /sys/devices/system/cpu/cpu4/cpufreq/schedutil/down_rate_limit_us 20000
-write /sys/devices/system/cpu/cpu7/cpufreq/schedutil/up_rate_limit_us 500
-write /sys/devices/system/cpu/cpu7/cpufreq/schedutil/down_rate_limit_us 20000
+    # CPUFreq (Instantaneous frequency increase with 10ms down-ramp decay for consistent frame pacing)
+    write /sys/devices/system/cpu/cpu0/cpufreq/schedutil/up_rate_limit_us 0
+    write /sys/devices/system/cpu/cpu0/cpufreq/schedutil/down_rate_limit_us 10000
+    write /sys/devices/system/cpu/cpu4/cpufreq/schedutil/up_rate_limit_us 0
+    write /sys/devices/system/cpu/cpu4/cpufreq/schedutil/down_rate_limit_us 10000
+    write /sys/devices/system/cpu/cpu7/cpufreq/schedutil/up_rate_limit_us 0
+    write /sys/devices/system/cpu/cpu7/cpufreq/schedutil/down_rate_limit_us 10000
 
-# CPUSets
-write /dev/cpuset/background/cpus 0-1
-setprop dalvik.vm.dex2oat-cpu-set 0,1,2,3,4,5,6
-setprop dalvik.vm.dex2oat-threads 6
+    # WALT Scheduler Tunables (Optimised migration thresholds for responsive UI rendering)
+    write /proc/sys/kernel/sched_upmigrate "65 75"
+    write /proc/sys/kernel/sched_downmigrate "50 65"
+    write /proc/sys/kernel/sched_group_upmigrate 70
+    write /proc/sys/kernel/sched_group_downmigrate 55
+
+    # Scheduler uclamp floor for top-app (Guarantees UI/Render threads run on Mid/Big cores)
+    write /dev/cpuctl/top-app/cpu.uclamp.min 15.00
+
+    # CPUSets
+    write /dev/cpuset/background/cpus 0-1
+    setprop dalvik.vm.dex2oat-cpu-set 0,1,2,3,4,5,6
+    setprop dalvik.vm.dex2oat-threads 6
