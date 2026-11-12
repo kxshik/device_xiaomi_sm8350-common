@@ -5,6 +5,11 @@
 
 COMMON_PATH := device/xiaomi/sm8350-common
 
+# Build system
+BUILD_BROKEN_DUP_RULES := true
+BUILD_BROKEN_DUP_SYSPROP := true
+BUILD_BROKEN_PREBUILT_ELF_FILES := true
+
 # A/B
 AB_OTA_PARTITIONS += \
     boot \
@@ -20,18 +25,16 @@ AB_OTA_PARTITIONS += \
 
 # Architecture
 TARGET_ARCH := arm64
-TARGET_ARCH_VARIANT := armv8-2a
+TARGET_ARCH_VARIANT := armv8-2a-dotprod
 TARGET_CPU_ABI := arm64-v8a
 TARGET_CPU_ABI2 :=
-TARGET_CPU_VARIANT := generic
-TARGET_CPU_VARIANT_RUNTIME := kryo385
+TARGET_CPU_VARIANT := cortex-a76
 
 TARGET_2ND_ARCH := arm
-TARGET_2ND_ARCH_VARIANT := armv8-a
+TARGET_2ND_ARCH_VARIANT := armv8-2a
 TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
-TARGET_2ND_CPU_VARIANT := generic
-TARGET_2ND_CPU_VARIANT_RUNTIME := kryo385
+TARGET_2ND_CPU_VARIANT := cortex-a76
 
 # Audio
 AUDIO_FEATURE_ENABLED_DLKM := true
@@ -58,23 +61,18 @@ TARGET_CAMERA_SERVICE_EXT_LIB := //$(COMMON_PATH):libcameraservice_extension.xia
 # Filesystem
 TARGET_FS_CONFIG_GEN := $(COMMON_PATH)/config.fs
 
-# GPS
-BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := default
-
 # HIDL
-DEVICE_MATRIX_FILE := hardware/qcom-caf/common/compatibility_matrix.xml
-
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \
-    hardware/qcom-caf/common/vendor_framework_compatibility_matrix.xml \
-    hardware/xiaomi/vintf/xiaomi_framework_compatibility_matrix.xml
+    hardware/xiaomi/vintf/xiaomi_framework_compatibility_matrix.xml \
+    $(COMMON_PATH)/vintf/xiaomi_sm8350_framework_compatibility_matrix.xml
 
 DEVICE_MANIFEST_FILE += \
-    $(COMMON_PATH)/hidl/manifest_lahaina.xml \
-    $(COMMON_PATH)/hidl/manifest_xiaomi.xml
+    $(COMMON_PATH)/vintf/manifest_lahaina.xml \
+    $(COMMON_PATH)/vintf/manifest_xiaomi.xml
 
 ifeq ($(TARGET_HAS_UDFPS),true)
 DEVICE_MANIFEST_FILE += \
-    $(COMMON_PATH)/hidl/manifest_udfps.xml
+    $(COMMON_PATH)/vintf/manifest_udfps.xml
 endif
 
 # Kernel
@@ -86,9 +84,6 @@ BOARD_KERNEL_SEPARATED_DTBO := true
 BOARD_BOOT_HEADER_VERSION := 3
 BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION)
 
-TARGET_KERNEL_ADDITIONAL_FLAGS := TARGET_PRODUCT=$(PRODUCT_DEVICE)
-TARGET_KERNEL_SOURCE := kernel/xiaomi/sm8350
-TARGET_KERNEL_CONFIG := vendor/lahaina-qgki_defconfig vendor/debugfs.config vendor/xiaomi_QGKI.config
 
 BOARD_KERNEL_CMDLINE += androidboot.console=ttyMSM0
 BOARD_KERNEL_CMDLINE += androidboot.hardware=qcom
@@ -123,7 +118,6 @@ BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := f2fs
 BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
 
--include vendor/lineage/config/BoardConfigReservedSize.mk
 BOARD_SYSTEM_EXTIMAGE_PARTITION_RESERVED_SIZE := 104857600
 BOARD_VENDORIMAGE_PARTITION_RESERVED_SIZE := 104857600
 
@@ -153,16 +147,17 @@ TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 
-# RIL
-ENABLE_VENDOR_RIL_SERVICE := true
+SOONG_CONFIG_NAMESPACES += ufsbsg
+SOONG_CONFIG_ufsbsg += ufsframework
+SOONG_CONFIG_ufsbsg_ufsframework := bsg
 
 # Security patch level
 BOOT_SECURITY_PATCH := 2025-11-01
 VENDOR_SECURITY_PATCH := $(BOOT_SECURITY_PATCH)
 
 # Sepolicy
-include device/lineage/sepolicy/libion/sepolicy.mk
 include device/qcom/sepolicy_vndr/SEPolicy.mk
+include vendor/aospa/sepolicy/libion/sepolicy.mk
 
 SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS += $(COMMON_PATH)/sepolicy/private
 SYSTEM_EXT_PUBLIC_SEPOLICY_DIRS += $(COMMON_PATH)/sepolicy/public
@@ -171,6 +166,7 @@ BOARD_VENDOR_SEPOLICY_DIRS += $(COMMON_PATH)/sepolicy/vendor
 # Verified Boot
 BOARD_AVB_ENABLE := true
 BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 3
+BOARD_AVB_MAKE_VBMETA_SYSTEM_IMAGE_ARGS += --flags 3
 BOARD_AVB_RECOVERY_KEY_PATH := external/avb/test/data/testkey_rsa2048.pem
 BOARD_AVB_RECOVERY_ALGORITHM := SHA256_RSA2048
 BOARD_AVB_RECOVERY_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
@@ -185,9 +181,7 @@ BOARD_MOVE_GSI_AVB_KEYS_TO_VENDOR_BOOT := true
 # WiFi
 BOARD_WLAN_DEVICE := qcwcn
 BOARD_HOSTAPD_DRIVER := NL80211
-BOARD_HOSTAPD_PRIVATE_LIB := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 BOARD_WPA_SUPPLICANT_DRIVER := NL80211
-BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 CONFIG_IEEE80211AC := true
 QC_WIFI_HIDL_FEATURE_DUAL_AP := true
 WIFI_DRIVER_DEFAULT := wlan
