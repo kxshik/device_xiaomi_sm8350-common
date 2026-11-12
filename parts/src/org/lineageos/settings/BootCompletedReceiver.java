@@ -25,7 +25,6 @@ import android.content.SharedPreferences;
 import androidx.preference.PreferenceManager;
 
 import org.lineageos.settings.thermal.ThermalUtils;
-import org.lineageos.settings.refreshrate.RefreshUtils;
 import org.lineageos.settings.utils.FileUtils;
 
 public class BootCompletedReceiver extends BroadcastReceiver {
@@ -41,8 +40,7 @@ public class BootCompletedReceiver extends BroadcastReceiver {
             Log.d(TAG, "Received boot completed intent: " + intent.getAction());
 
         ThermalUtils.startService(context);
-        RefreshUtils.startService(context);    
-        
+
         // DC Dimming
         FileUtils.enableService(context);
         boolean dcDimmingEnabled = sharedPrefs.getBoolean(DC_DIMMING_ENABLE_KEY, false);
