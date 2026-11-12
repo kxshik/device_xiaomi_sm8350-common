@@ -52,7 +52,7 @@
 
 
 #define LOG_TAG "gpt-utils"
-#include <log/log.h>
+#include <cutils/log.h>
 #include <cutils/properties.h>
 #include "gpt-utils.h"
 #include <zlib.h>
@@ -157,11 +157,18 @@ static int blk_rw(int fd, int rw, int64_t offset, uint8_t *buf, unsigned len)
     else
         r = read(fd, buf, len);
 
-    if (r < 0)
+    if (r < 0) {
         fprintf(stderr, "block dev %s failed: %s\n", rw ? "write" : "read",
                 strerror(errno));
-    else
-        r = 0;
+    } else {
+        if (rw) {
+            r = fsync(fd);
+            if (r < 0)
+                fprintf(stderr, "fsync failed: %s\n", strerror(errno));
+        } else {
+            r = 0;
+        }
+    }
 
     return r;
 }
@@ -241,9 +248,14 @@ static int gpt_boot_chain_swap(const uint8_t *pentries_start,
         uint8_t ptn_swap[PTN_ENTRY_SIZE];
         //Skip the xbl, multiimgoem, multiimgqti partitions on UFS devices. That is handled
         //seperately.
-        if (gpt_utils_is_ufs_device() && (!strncmp(ptn_swap_list[i],PTN_XBL,strlen(PTN_XBL))
-            || !strncmp(ptn_swap_list[i],PTN_MULTIIMGOEM,strlen(PTN_MULTIIMGOEM))
-            || !strncmp(ptn_swap_list[i],PTN_MULTIIMGQTI,strlen(PTN_MULTIIMGQTI))))
+        if (gpt_utils_is_ufs_device() && (!strcmp(ptn_swap_list[i],PTN_XBL)
+            || !strcmp(ptn_swap_list[i],PTN_XBL_CFG)
+            || !strcmp(ptn_swap_list[i],PTN_XBL_AC_CFG)
+            || !strcmp(ptn_swap_list[i],PTN_TME_CFG)
+            || !strcmp(ptn_swap_list[i],PTN_TME_FW)
+            || !strcmp(ptn_swap_list[i],PTN_TME_SEQ_PATCH)
+            || !strcmp(ptn_swap_list[i],PTN_MULTIIMGOEM)
+            || !strcmp(ptn_swap_list[i],PTN_MULTIIMGQTI)))
             continue;
 
         ptn_entry = gpt_pentry_seek(ptn_swap_list[i], pentries_start,
@@ -970,9 +982,14 @@ int prepare_boot_update(enum boot_update_stage stage)
                         //of being loaded based on well known GUID'S.
                         //We take care of switching the UFS boot LUN
                         //explicitly later on.
-                        if (!strncmp(ptn_swap_list[i],PTN_XBL,strlen(PTN_XBL))
-                            || !strncmp(ptn_swap_list[i],PTN_MULTIIMGOEM,strlen(PTN_MULTIIMGOEM))
-                            || !strncmp(ptn_swap_list[i],PTN_MULTIIMGQTI,strlen(PTN_MULTIIMGQTI)))
+                        if (!strcmp(ptn_swap_list[i],PTN_XBL)
+                            || !strcmp(ptn_swap_list[i],PTN_XBL_CFG)
+                            || !strcmp(ptn_swap_list[i],PTN_XBL_AC_CFG)
+                            || !strcmp(ptn_swap_list[i],PTN_TME_CFG)
+                            || !strcmp(ptn_swap_list[i],PTN_TME_FW)
+                            || !strcmp(ptn_swap_list[i],PTN_TME_SEQ_PATCH)
+                            || !strcmp(ptn_swap_list[i],PTN_MULTIIMGOEM)
+                            || !strcmp(ptn_swap_list[i],PTN_MULTIIMGQTI))
                                 continue;
                         snprintf(buf, sizeof(buf),
                                         "%s/%sbak",
